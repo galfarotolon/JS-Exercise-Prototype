@@ -68,6 +68,7 @@ Person.prototype.toString = function () {
         + should initialize with an `tank` at 0
         + should initialize with an `odometer` at 0
     - Give cars the ability to get fueled with a `.fill(gallons)` method. Add the gallons to `tank`.
+
     - STRETCH: Give cars ability to `.drive(distance)`. The distance driven:
         + Should cause the `odometer` to go up.
         + Should cause the the `tank` to go down taking `milesPerGallon` into account.
@@ -81,14 +82,29 @@ function Car(model, milesPerGallon) {
     this.tank = 0,
     this.odometer = 0
 }
-
 Car.prototype.fill = function (gallons) {
-
   this.tank = this.tank + gallons;
+}
+
+Car.prototype.drive = function (distance) {
+
+  let totalTankDistance = this.tank * this.milesPerGallon;
+
+  if (totalTankDistance >= distance) {
+
+    this.odometer = this.odometer + distance;
+    this.tank = this.tank - (distance / this.milesPerGallon);
+  } else {
+    this.tank = 0;
+    this.odometer = this.odometer + totalTankDistance;
+    return `I ran out of fuel at ${this.odometer} miles!`;
+  }
 
 }
 
 
+// actual distance <= possible distance travel 
+// add a var of total tank distance and compare that to greater or equal to the distance
 
 /*
   TASK 3
